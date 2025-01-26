@@ -19,12 +19,13 @@ function App() {
       const result=await apiResponse.json();
       // console.log(result);
       
-      if(result?.todos && result?.todos?.length > 0)
+      if(result?.todos && result?.todos?.length > 0 )
       {
-        // console.log(result?.todos);
+        console.log(result?.todos);
         setTodoList(result?.todos);
         setLoading(false);
         setErrMsg('')
+       
       }
       else{
         setLoading(false);
@@ -39,14 +40,13 @@ function App() {
     }
 
   }
-
   async function fetchDetailofCurrentTodo(getCurrentTodo)
   {
     try{
 
       const singleTodo= await fetch(`https://dummyjson.com/todos/${getCurrentTodo}`)
       const details=await singleTodo.json();
-      // console.log(details);
+      // console.log(details?.completed);
       if(details)
       {
         setTodoDetails(details);
@@ -71,7 +71,7 @@ function App() {
     <div className={classes.mainWrapper}>
       <h1 className={classes.heading_text}> To Do List</h1>
       <div className={classes.todoListWrapper}>
-        {
+        { //showing all todods
           todoList && todoList.length > 0 ?
           todoList.map((todoItem) =>
           <TodoItem key={todoItem.id} todoEachItem={todoItem}
@@ -80,6 +80,18 @@ function App() {
         )
           :null
         }
+        {/* {
+          //fetching todo which has completed false those need to complete
+          todoList && todoList.length > 0 ? todoList.map(todoItem=> {
+            // console.log(todoItem)
+            if(todoItem.completed===false)
+            {
+              console.log(todoItem);
+              <TodoItem key={todoItem.id} todoEachItem={todoItem} fetchDetailofCurrentTodo={fetchDetailofCurrentTodo}/>
+
+            }
+          }) : null
+        } */}
       </div>
       {/* <TodoDetails openDialog={openDialog} todoDetails={todoDetails}
       setOpenDialog={setOpenDialog} setTodoDetails={setTodoDetails}
