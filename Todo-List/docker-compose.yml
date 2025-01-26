@@ -1,10 +1,10 @@
-
+version: "3.8"
 services: 
   react-app:
     container_name: todo-list
     image: saniyabagwan1111/todo-list-app:latest
     ports:
-      - "5173: 5173"
+      - 5171:5173
     healthcheck:
       test: ["CMD", "curl","-f","http://localhost:5173"]
       timeout: 20s
