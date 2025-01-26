@@ -1,0 +1,39 @@
+pipeline{
+    agent {label "dev-server"}
+    stages{
+        stage("Code Clone"){
+            steps{
+                
+                git url: "https://github.com/saniya-bagwan-1111/React-JS-Project.git", branch:"main"
+                
+            }
+        }
+        stage("Build Image")
+        {
+            steps{
+                 dir('Todo-List') {
+                    sh "docker build -t todo-list ."
+                }
+            }
+        }
+        stage("Push to DockeHub")
+        {
+            steps{
+                withCredentials([usernamePassword(credentialsId:"dockerHubCreds",
+                                                usernameVariable:"dockerHubUser",
+                                                passwordVariable:"dockerHubPass")])
+                {
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
+                    sh "docker image tag todo-list:latest ${env.dockerHubUser}/todo-list:latest"
+                    sh "docker push ${env.dockerHubUser}/todo-list:latest"
+                }
+            }
+        }
+        stage("deploy")
+        {
+            steps{
+                sh "docker run -d -p 5173:5173 todo-list:latest"
+            }
+        }
+    }
+}
