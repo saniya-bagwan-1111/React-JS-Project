@@ -32,7 +32,7 @@ pipeline{
         stage("deploy")
         {
             steps{
-                sh "docker run -d -p 5173:5173 todo-list:latest"
+                sh "docker run -d -p 5171:5173 todo-list:latest"
             }
         }
     }
