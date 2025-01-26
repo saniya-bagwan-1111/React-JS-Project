@@ -1,4 +1,5 @@
 React js project-To Do List app
+
 **Creating Docker image using Dockerfile and running into container**
 1.	Created own react js app where used dummy api for todo
 2.	Created docker file for Todo List ReactJS  application
@@ -30,4 +31,3 @@ On worker node ip address application is running.
  
 **Jenkinsfile craetion**
 In Jenkins pipeline groovy syntax pipeline code we can in Jenkinsfile. Use Jenkinsfile in pipeline we don’t require to write separate pipeline
-
